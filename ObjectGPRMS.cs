@@ -1,12 +1,21 @@
-﻿using System;
+﻿//----------------------------------------------------------------------------- 
+// <copyright file="Program.cs" company="PAHUD Maxime"> 
+// Copyright (c) Pahud Maxime. All rights reserved. 
+// </copyright>
+//-----------------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+
 namespace Base_DTrack_Nav
 {
-   
-
+  
+    /// <summary>
+    /// 
+    /// </summary>
     class ObjectGPRMC : ObjectGP
     {
         string timeUTC;
@@ -22,32 +31,25 @@ namespace Base_DTrack_Nav
         char posEorWMagnetic;
        // bool checksum; 
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="var"></param>
         public ObjectGPRMC(string[] var){
+
         this.timeUTC = var[1];
-        if(var[2].Equals("V"))
-            this.status  ='V';
-        else this.status = 'A';
+        this.status = char.Parse(var[2]);
         this.latitude = var[3];
-
-        if(var[4].Equals("N"))
-            this.posNorS  ='N';
-        else this.posNorS = 'S';
-
+        this.posNorS = char.Parse(var[4]);
         this.longitude = var[5];
-
-        if (var[6].Equals("E"))
-            this.posEorW = 'E';
-        else this.posEorW = 'W';
-
+        this.posEorW = char.Parse(var[6]);
         this.speed = var[7];
         this.cap = var[8];
         this.date = var[9];
         this.magnetic = var[10];
-
-        if (var[11].Equals("E"))
-            this.posEorWMagnetic = 'E';
-        else this.posEorWMagnetic = 'W';
+        if(var[11].Substring(0,1) == "*")
+            this.posEorWMagnetic = ' ';
+        else this.posEorWMagnetic = char.Parse(var[11].Substring(0,1));
         //this checksum; 
 
         }

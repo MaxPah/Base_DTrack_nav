@@ -1,4 +1,10 @@
-﻿using System;
+﻿//----------------------------------------------------------------------------- 
+// <copyright file="Program.cs" company="PAHUD Maxime"> 
+// Copyright (c) Pahud Maxime. All rights reserved. 
+// </copyright>
+//-----------------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +12,9 @@ using System.Text;
 namespace Base_DTrack_Nav
 {
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     class ObjectGPGGA : ObjectGP
     {
         string timeUTC;
@@ -25,7 +33,10 @@ namespace Base_DTrack_Nav
         string stationRef;
         // bool checksum; 
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="var"></param>
         public ObjectGPGGA(string[] var)
         {
             this.timeUTC = var[1];
