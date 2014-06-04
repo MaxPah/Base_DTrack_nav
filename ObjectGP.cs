@@ -7,17 +7,9 @@ namespace Base_DTrack_Nav
 {
     class ObjectGP
     {
-        private string type;
-
-        public ObjectGP(string[][] infos)
+        public ObjectGP()
         {
-            /*this.type = infos[0][0];
-
-            if (this.type.equals(GPGGA))
-                ;
-            else if (this.type.equals(GPRMC))
-                ;
-            */
+         
         }
     }
 }
