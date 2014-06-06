@@ -45,7 +45,7 @@
   <ItemGroup>
     <Compile Include="ObjectGP.cs" />
     <Compile Include="ObjectGPGGA.cs" />
-    <Compile Include="ObjectGPRMS.cs" />
+    <Compile Include="ObjectGPRMC.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
