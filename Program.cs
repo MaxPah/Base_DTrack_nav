@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using NUnit.Framework;
 
 namespace Base_DTrack_Nav
 {
@@ -25,9 +26,7 @@ namespace Base_DTrack_Nav
 
             t = initGPS();
             splitMessage(t,list);
-
-            Console.WriteLine(list.Count());
-          
+            
             sTOP_CMD();
         }
 
@@ -35,7 +34,7 @@ namespace Base_DTrack_Nav
         /// Used to calculate checksum
         /// </summary>
         /// <param name="trame">trame which we calculate the checksum</param>
-        static Boolean checksumCalculator(string trame) {
+        public static bool checksumCalculator(string trame) {
             int checksum = 0;
             string baseChecksum;
             int Output=0;
@@ -51,8 +50,7 @@ namespace Base_DTrack_Nav
 
             Output = int.Parse(baseChecksum, System.Globalization.NumberStyles.HexNumber);
 
-
-            /// Returns
+           /// Returns
             if (checksum.Equals(Output))
                 return true;
             else
@@ -72,20 +70,6 @@ namespace Base_DTrack_Nav
             string[][] split2;
                     
             split= t.Split('$');
-
-           // Console.WriteLine(split.Length);
-            
-            /*
-            ///
-            foreach (string s in split)
-            {
-                Console.WriteLine(s);
-                Console.WriteLine(s.Length);
-            }
-            ///
-            */
-           
-
             split2 = new string[split.Length][];
 
            for(int i=1; i<split.Length;i++)
@@ -96,16 +80,14 @@ namespace Base_DTrack_Nav
                 if (split2[i][0] == "GPGGA")
                 {
                     objGPGGA = new ObjectGPGGA(split2[i]);
-                    Console.WriteLine("GPGGA");
-                    Console.WriteLine("lat:" +  objGPGGA.latitude + " / lon: " + objGPGGA.longitude);
+                    Console.WriteLine(split2[i][0]+split2[i][1]+split2[i][2]+split2[i][3]+split2[i][4]+split2[i][5]+split2[i][6]+split2[i][7]+split2[i][8]+split2[i][9]+split2[i][10]+split2[i][11]+split2[i][12]+split2[i][13]+split2[i][14]);
                     list.Add(objGPGGA);
                 }
                 else if (split2[i][0] == "GPRMC")
                 {
                     objGPRMC = new ObjectGPRMC(split2[i]);
-                    Console.WriteLine("GPRMC");
-                    Console.WriteLine("lat:" + objGPRMC.latitude + " / lon: " + objGPRMC.longitude);
-                    list.Add(objGPRMC);
+                    Console.WriteLine(split2[i][0] + split2[i][1] + split2[i][2] + split2[i][3] + split2[i][4] + split2[i][5] + split2[i][6] + split2[i][7] + split2[i][8] + split2[i][9] + split2[i][10] + split2[i][11]);
+                   list.Add(objGPRMC);
                 }
                 else Console.WriteLine(split2[i][0]);
                             
