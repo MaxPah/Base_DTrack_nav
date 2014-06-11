@@ -17,19 +17,20 @@ namespace Base_DTrack_Nav
     /// </summary>
     class ObjectGPGGA : ObjectGP
     {
-        DateTime timeUTC;
+        public string type;
+        public DateTime timeUTC;
         public string latitude;
         public string longitude;
-        byte gpsQuality;
-        byte nSat;
-        float dilution;
-        float altitude;
-        char altUnit;
-        float geoidal;
-        char geoUnit;
-        DateTime dGPSTime;
-        string stationRef;
-        int checksum; // value.ToString("X");
+        public byte gpsQuality;
+        public byte nSat;
+        public float dilution;
+        public float altitude;
+        public char altUnit;
+        public float geoidal;
+        public char geoUnit;
+        public DateTime dGPSTime;
+        public string stationRef;
+        public string checksum; // value.ToString("X");
 
         /// <summary>
         /// 
@@ -38,7 +39,8 @@ namespace Base_DTrack_Nav
         public ObjectGPGGA(string[] var)
         {
             string separator = System.Globalization.NumberFormatInfo.CurrentInfo.CurrencyDecimalSeparator;
-            
+
+            this.type = "GPGGA";
                 int year = DateTime.Now.Year;
                 int month = DateTime.Now.Month;
                 int day = DateTime.Now.Day;
@@ -64,9 +66,8 @@ namespace Base_DTrack_Nav
             else this.geoUnit = char.Parse(var[12]);
             if(var[13] != "0.0")
             this.dGPSTime = new DateTime(year, month, day, int.Parse(var[13].Substring(0, 2)), int.Parse(var[13].Substring(2, 2)), int.Parse(var[13].Substring(4, 2)), int.Parse(var[13].Substring(7, 3)));
-            this.stationRef = var[14];
-            Console.WriteLine(var[14]);
-           // this.checksum = var[15]; 
+            this.stationRef = var[14].Substring(0,4);
+            this.checksum = var[14].Substring(var[14].Length - 2, 2);
 
         }
     }
