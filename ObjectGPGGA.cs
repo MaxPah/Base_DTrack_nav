@@ -23,10 +23,10 @@ namespace Base_DTrack_Nav
         public string longitude;
         public byte gpsQuality;
         public byte nSat;
-        public float dilution;
-        public float altitude;
+        public double dilution;
+        public double altitude;
         public char altUnit;
-        public float geoidal;
+        public double geoidal;
         public char geoUnit;
         public DateTime dGPSTime;
         public string stationRef;
@@ -53,7 +53,9 @@ namespace Base_DTrack_Nav
                 this.longitude = toLongitude(var[4]) + " " + char.Parse(var[5]);
                 this.gpsQuality = byte.Parse(var[6]);
                 this.nSat = byte.Parse(var[7]);
-                this.dilution = Convert.ToSingle(var[8].Replace(".",separator)); 
+                if (var[8] != string.Empty || var[8] != "")
+                    this.dilution = Convert.ToSingle(var[8].Replace(".", separator));
+                else this.dilution = 0;
                 this.altitude = Convert.ToSingle(var[9].Replace(".",separator)); 
             
             if (var[10].Equals(""))
@@ -64,9 +66,13 @@ namespace Base_DTrack_Nav
             if(var[12].Equals(""))
                 this.geoUnit = '\0';
             else this.geoUnit = char.Parse(var[12]);
-            if(var[13] != "0.0")
-            this.dGPSTime = new DateTime(year, month, day, int.Parse(var[13].Substring(0, 2)), int.Parse(var[13].Substring(2, 2)), int.Parse(var[13].Substring(4, 2)), int.Parse(var[13].Substring(7, 3)));
-            this.stationRef = var[14].Substring(0,4);
+            if (var[13] == "0.0" || var[13] == "")
+                this.dGPSTime = new DateTime();
+            else this.dGPSTime = new DateTime(year, month, day, int.Parse(var[13].Substring(0, 2)), int.Parse(var[13].Substring(2, 2)), int.Parse(var[13].Substring(4, 2)), int.Parse(var[13].Substring(7, 3)));
+
+            if (var[14].Length > 3)
+                this.stationRef = var[14].Substring(0, 4);
+            else this.stationRef = "0000";
             this.checksum = var[14].Substring(var[14].Length - 2, 2);
 
         }

@@ -14,7 +14,7 @@ namespace Base_DTrack_Nav
         public char status;
         public string latitude;
         public string longitude;
-        public string speed;
+        public double speed;
         public string cap;
         public DateTime date;
         public string magnetic;
@@ -39,8 +39,8 @@ namespace Base_DTrack_Nav
                 this.status = '\0';
             this.status = char.Parse(var[2]);
             this.latitude = toLatitude(var[3]) + " "+ char.Parse(var[4]);
-            this.longitude = toLongitude(var[5]) + "" + char.Parse(var[6]);
-            this.speed = var[7];
+            this.longitude = toLongitude(var[5]) + " " + char.Parse(var[6]);
+           // this.speed = Convert.ToDouble(var[6].Replace(".",separator)); 
             this.cap = var[8];
             this.date = new DateTime(int.Parse(var[9].Substring(4, 2))+2000,int.Parse(var[9].Substring(2,2)),int.Parse(var[9].Substring(0,2)));
             this.magnetic = var[10];

@@ -21,13 +21,14 @@ namespace Base_DTrack_Nav
         /// <param name="args"></param>
         static void Main(string[] args) {
             //[$GPGGA],[0-9]*.[0-9]*,[0-9]*.[0-9]*,[N|S],[0-9]*.[0-9]*,[E|W],[0-2],[0-1][0-9],[0-9]*.[0-9]*,[0-9]*.[0-9]*,[M]*,[0-9]*.[0-9]*,[M|]*,[0-9]*,[0-9]*[*][0-9|A-F]{2}
-            string t;
+          /*  string t;
            List<Object> list = new List<Object>();
 
             t = initGPS();
-            splitMessage(t,list);
-            printData(list);
+            list = splitMessage(t,list);
+            printData(list);*/
             
+            dtnav_test.test_ListObject();
             sTOP_CMD();
         }
 
@@ -42,8 +43,6 @@ namespace Base_DTrack_Nav
 
             for (int i = 0; i < trame.Length -3; i++)
                 checksum ^= Convert.ToByte(trame[i]);
-
-          // Console.WriteLine(trame);
           
             if (trame.Length != 0)
                 baseChecksum = trame.Substring(trame.Length -2, 2);
@@ -66,10 +65,11 @@ namespace Base_DTrack_Nav
         /// </summary>
         /// <param name="t">String to parse</param>
         /// <returns>Return array parsed</returns>
-       public static void splitMessage(string t, List<Object> list) {
+       public static List<Object> splitMessage(string t, List<Object> list) {
             string[] split;
             string[][] split2;
-                    
+
+            t = t.Substring(1, t.Length-1);
             split= t.Split('$');
             split2 = new string[split.Length][];
 
@@ -88,9 +88,12 @@ namespace Base_DTrack_Nav
                     objGPRMC = new ObjectGPRMC(split2[i]);
                     list.Add(objGPRMC);
                 }
-                else Console.WriteLine(split2[i][0]);
+                //else Console.WriteLine(split2[i][0]);
+             
                             
             }
+
+           return list;
         }
 
 
