@@ -50,7 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="dtnav_test.cs" />
     <Compile Include="ObjectGP.cs" />
     <Compile Include="ObjectGPGGA.cs" />
     <Compile Include="ObjectGPRMC.cs" />

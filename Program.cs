@@ -13,6 +13,7 @@ using NUnit.Framework;
 
 namespace Base_DTrack_Nav
 {
+    #region Program definition
     class Program
     {
         /// <summary>
@@ -21,14 +22,15 @@ namespace Base_DTrack_Nav
         /// <param name="args"></param>
         static void Main(string[] args) {
             //[$GPGGA],[0-9]*.[0-9]*,[0-9]*.[0-9]*,[N|S],[0-9]*.[0-9]*,[E|W],[0-2],[0-1][0-9],[0-9]*.[0-9]*,[0-9]*.[0-9]*,[M]*,[0-9]*.[0-9]*,[M|]*,[0-9]*,[0-9]*[*][0-9|A-F]{2}
-          /*  string t;
+            #region 
+            string t;
            List<Object> list = new List<Object>();
+            #endregion
 
-            t = initGPS();
+           t = initGPS();
             list = splitMessage(t,list);
-            printData(list);*/
+            printData(list);
             
-            dtnav_test.test_ListObject();
             sTOP_CMD();
         }
 
@@ -67,13 +69,12 @@ namespace Base_DTrack_Nav
         /// <returns>Return array parsed</returns>
        public static List<Object> splitMessage(string t, List<Object> list) {
             string[] split;
-            string[][] split2;
-
+           
             t = t.Substring(1, t.Length-1);
             split= t.Split('$');
-            split2 = new string[split.Length][];
+            string[][] split2 = new string[split.Length][];
 
-           for(int i=1; i<split.Length;i++)
+           for(int i=0; i < split.Length;i++)
             {
                 if (checksumCalculator(split[i]))
                     split2[i] = split[i].Split(',');
@@ -87,10 +88,7 @@ namespace Base_DTrack_Nav
                 {
                     objGPRMC = new ObjectGPRMC(split2[i]);
                     list.Add(objGPRMC);
-                }
-                //else Console.WriteLine(split2[i][0]);
-             
-                            
+                }           
             }
 
            return list;
@@ -103,8 +101,8 @@ namespace Base_DTrack_Nav
         /// <returns>Return the string to parse </returns>
        public static string initGPS()
         {
-            string message = "$GPGSA,A,3,08,07,04,10,05,02,23,13,,,,,2.4,1.0,2.1*38$GPRMC,105957.918,A,3401.3667,N,00649.6145,W,0.00,,050510,,*0E$GPGGA,105958.918,3401.3667,N,00649.6144,W,1,08,1.0,99.9,M,45.3,M,0.0,0000*5C$GPGSA,,,,,,,,,,,,,,,,,*6E$GPRMC,105958.918,A,3401.3667,N,00649.6144,W,0.00,,050510,,*00$GPGGA,105959.917,3401.3667,N,00649.6143,W,1,08,1.0,100.0,M,45.3,M,0.0,0000*6D$GPGSA,A,3,08,07,04,10,05,02,23,13,,,,,2.4,1.0,2.1*38$GPRMC,105959.917,A,3401.3667,N,00649.6143,W,0.00,,050510,,*09$GPGGA,110000.917,3401.3666,N,00649.6143,W,1,08,1.0,100.2,M,45.3,M,0.0,0000*6F$GPGSA,A,3,08,07,04,10,05,02,23,13,,,,,2.4,1.0,2.1*38$GPRMC,110000.917,A,3401.3666,N,00649.6143,W,0.00,,050510,,*09$GPGGA,110001.917,3401.3667,N,00649.6142,W,1,08,1.0,100.4,M,45.3,M,0.0,0000*68$GPGSA,A,3,08,07,04,10,05,02,23,13,,,,,2.4,1.0,2.1*38$GPGSV,2,1,08,04,62,198,43,07,61,102,43,02,49,296,42,10,47,318,46*7F$GPGSV,2,2,08,08,46,166,42,13,35,042,37,05,20,303,39,23,13,053,41*77$GPRMC,110001.917,A,3401.3667,N,00649.6142,W,0.00,,050510,,*08$GPGGA,110002.917,3401.3667,N,00649.6142,W,1,08,1.0,100.5,M,45.3,M,0.0,0000*6A";
-            //string message = "$GPGGA,064036.289,4836.5375,N,00740.9373,E,1,04,3.2,200.2,M,,,,0000*0E";
+           // string message = "$GPGSA,A,3,08,07,04,10,05,02,23,13,,,,,2.4,1.0,2.1*38$GPRMC,105957.918,A,3401.3667,N,00649.6145,W,0.00,,050510,,*0E$GPGGA,105958.918,3401.3667,N,00649.6144,W,1,08,1.0,99.9,M,45.3,M,0.0,0000*5C$GPGSA,,,,,,,,,,,,,,,,,*6E$GPRMC,105958.918,A,3401.3667,N,00649.6144,W,0.00,,050510,,*00$GPGGA,105959.917,3401.3667,N,00649.6143,W,1,08,1.0,100.0,M,45.3,M,0.0,0000*6D$GPGSA,A,3,08,07,04,10,05,02,23,13,,,,,2.4,1.0,2.1*38$GPRMC,105959.917,A,3401.3667,N,00649.6143,W,0.00,,050510,,*09$GPGGA,110000.917,3401.3666,N,00649.6143,W,1,08,1.0,100.2,M,45.3,M,0.0,0000*6F$GPGSA,A,3,08,07,04,10,05,02,23,13,,,,,2.4,1.0,2.1*38$GPRMC,110000.917,A,3401.3666,N,00649.6143,W,0.00,,050510,,*09$GPGGA,110001.917,3401.3667,N,00649.6142,W,1,08,1.0,100.4,M,45.3,M,0.0,0000*68$GPGSA,A,3,08,07,04,10,05,02,23,13,,,,,2.4,1.0,2.1*38$GPGSV,2,1,08,04,62,198,43,07,61,102,43,02,49,296,42,10,47,318,46*7F$GPGSV,2,2,08,08,46,166,42,13,35,042,37,05,20,303,39,23,13,053,41*77$GPRMC,110001.917,A,3401.3667,N,00649.6142,W,0.00,,050510,,*08$GPGGA,110002.917,3401.3667,N,00649.6142,W,1,08,1.0,100.5,M,45.3,M,0.0,0000*6A";
+            string message = "$GPRMC,,,,,,,,,,,*67$GPGGA,,,,,,,,,,,,,,*56";
             message = message.Substring(0);
             return message;
         }
@@ -148,6 +146,7 @@ namespace Base_DTrack_Nav
         public static ObjectGPRMC objGPRMC { get; set; }
         public static ObjectGPGGA objGPGGA { get; set; }
     }
+    #endregion
 }
 
 
