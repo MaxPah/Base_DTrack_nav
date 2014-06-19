@@ -37,7 +37,7 @@ namespace Base_DTrack_Nav
             {
                 int deg = int.Parse(lat.Substring(0, 2));
                 int min = int.Parse(lat.Substring(2, 2));
-                float sec = float.Parse(lat.Substring(5, 4))*6/1000;
+                float sec = float.Parse(lat.Substring(lat.Length-3, 3))*6/1000;
                 
                 return deg+"°"+min+"'"+sec+"\"";
             }
@@ -55,7 +55,7 @@ namespace Base_DTrack_Nav
             {
                 int deg = int.Parse(lon.Substring(0, 3));
                 int min = int.Parse(lon.Substring(3, 2));
-                float sec = float.Parse(lon.Substring(6, 4)) * 6 / 1000;
+                float sec = float.Parse(lon.Substring(lon.Length-3, 3)) * 6 / 1000;
 
                 return deg+"°"+min+"'"+sec+"\"";
             }

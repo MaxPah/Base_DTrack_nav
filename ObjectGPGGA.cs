@@ -53,7 +53,10 @@ namespace Base_DTrack_Nav
                 int h = int.Parse(var[1].Substring(0, 2));
                 int m = int.Parse(var[1].Substring(2, 2));
                 int s = int.Parse(var[1].Substring(4, 2));
-                int ms = int.Parse(var[1].Substring(7, 3));
+                int ms;
+                if (var[1].Length > 6)
+                    ms = int.Parse(var[1].Substring(7, 3));
+                else ms = 0;
                 this.timeUTC = new DateTime(year, month, day, h, m, s, ms);
             }
             else this.timeUTC = new DateTime(1, 1, 1);

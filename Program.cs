@@ -29,8 +29,13 @@ namespace Base_DTrack_Nav
 
            t = initGPS();
             list = splitMessage(t,list);
-            printData(list);
-            
+           ObjectGP.printData(list);
+           
+
+            /*checksumCalculator("GPGGA,,,,,,,,,,,,,,*56");
+            Console.WriteLine();
+            checksumCalculator("abc*60");*/
+
             sTOP_CMD();
         }
 
@@ -43,8 +48,11 @@ namespace Base_DTrack_Nav
             string baseChecksum;
             int Output=0;
 
-            for (int i = 0; i < trame.Length -3; i++)
+            for (int i = 0; i < trame.Length - 3; i++)
+            {
                 checksum ^= Convert.ToByte(trame[i]);
+                //Console.Write(checksum+" ");
+            }
           
             if (trame.Length != 0)
                 baseChecksum = trame.Substring(trame.Length -2, 2);
@@ -101,8 +109,9 @@ namespace Base_DTrack_Nav
         /// <returns>Return the string to parse </returns>
        public static string initGPS()
         {
-           // string message = "$GPGSA,A,3,08,07,04,10,05,02,23,13,,,,,2.4,1.0,2.1*38$GPRMC,105957.918,A,3401.3667,N,00649.6145,W,0.00,,050510,,*0E$GPGGA,105958.918,3401.3667,N,00649.6144,W,1,08,1.0,99.9,M,45.3,M,0.0,0000*5C$GPGSA,,,,,,,,,,,,,,,,,*6E$GPRMC,105958.918,A,3401.3667,N,00649.6144,W,0.00,,050510,,*00$GPGGA,105959.917,3401.3667,N,00649.6143,W,1,08,1.0,100.0,M,45.3,M,0.0,0000*6D$GPGSA,A,3,08,07,04,10,05,02,23,13,,,,,2.4,1.0,2.1*38$GPRMC,105959.917,A,3401.3667,N,00649.6143,W,0.00,,050510,,*09$GPGGA,110000.917,3401.3666,N,00649.6143,W,1,08,1.0,100.2,M,45.3,M,0.0,0000*6F$GPGSA,A,3,08,07,04,10,05,02,23,13,,,,,2.4,1.0,2.1*38$GPRMC,110000.917,A,3401.3666,N,00649.6143,W,0.00,,050510,,*09$GPGGA,110001.917,3401.3667,N,00649.6142,W,1,08,1.0,100.4,M,45.3,M,0.0,0000*68$GPGSA,A,3,08,07,04,10,05,02,23,13,,,,,2.4,1.0,2.1*38$GPGSV,2,1,08,04,62,198,43,07,61,102,43,02,49,296,42,10,47,318,46*7F$GPGSV,2,2,08,08,46,166,42,13,35,042,37,05,20,303,39,23,13,053,41*77$GPRMC,110001.917,A,3401.3667,N,00649.6142,W,0.00,,050510,,*08$GPGGA,110002.917,3401.3667,N,00649.6142,W,1,08,1.0,100.5,M,45.3,M,0.0,0000*6A";
-            string message = "$GPRMC,,,,,,,,,,,*67$GPGGA,,,,,,,,,,,,,,*56";
+            string message = "$GPGSA,A,3,08,07,04,10,05,02,23,13,,,,,2.4,1.0,2.1*38$GPRMC,105957.918,A,3401.3667,N,00649.6145,W,0.00,,050510,,*0E$GPGGA,105958.918,3401.3667,N,00649.6144,W,1,08,1.0,99.9,M,45.3,M,0.0,0000*5C$GPGSA,,,,,,,,,,,,,,,,,*6E$GPRMC,105958.918,A,3401.3667,N,00649.6144,W,0.00,,050510,,*00$GPGGA,105959.917,3401.3667,N,00649.6143,W,1,08,1.0,100.0,M,45.3,M,0.0,0000*6D$GPGSA,A,3,08,07,04,10,05,02,23,13,,,,,2.4,1.0,2.1*38$GPRMC,105959.917,A,3401.3667,N,00649.6143,W,0.00,,050510,,*09$GPGGA,110000.917,3401.3666,N,00649.6143,W,1,08,1.0,100.2,M,45.3,M,0.0,0000*6F$GPGSA,A,3,08,07,04,10,05,02,23,13,,,,,2.4,1.0,2.1*38$GPRMC,110000.917,A,3401.3666,N,00649.6143,W,0.00,,050510,,*09$GPGGA,110001.917,3401.3667,N,00649.6142,W,1,08,1.0,100.4,M,45.3,M,0.0,0000*68$GPGSA,A,3,08,07,04,10,05,02,23,13,,,,,2.4,1.0,2.1*38$GPGSV,2,1,08,04,62,198,43,07,61,102,43,02,49,296,42,10,47,318,46*7F$GPGSV,2,2,08,08,46,166,42,13,35,042,37,05,20,303,39,23,13,053,41*77$GPRMC,110001.917,A,3401.3667,N,00649.6142,W,0.00,,050510,,*08$GPGGA,110002.917,3401.3667,N,00649.6142,W,1,08,1.0,100.5,M,45.3,M,0.0,0000*6A";
+            //string message = "$GPRMC,,,,,,,,,,,*67$GPGGA,,,,,,,,,,,,,,*56";
+            // string message = "$GPRMC,183729,A,3907.356,N,12102.482,W,000.0,360.0,080301,015.5,E*6F$GPRMB,A,,,,,,,,,,,,V*71$GPGGA,183730,3907.356,N,12102.482,W,1,05,1.6,646.4,M,-24.1,M,,*75$GPGSA,A,3,02,,,07,,09,24,26,,,,,1.6,1.6,1.0*3D$GPGSV,2,1,08,02,43,088,38,04,42,145,00,05,11,291,00,07,60,043,35*71$GPGSV,2,2,08,08,02,145,00,09,46,303,47,24,16,178,32,26,18,231,43*77$PGRME,22.0,M,52.9,M,51.0,M*14$GPRMC,183731,A,3907.482,N,12102.436,W,000.0,360.0,080301,015.5,E*67$GPRMB,A,,,,,,,,,,,,V*71";
             message = message.Substring(0);
             return message;
         }
@@ -118,31 +127,7 @@ namespace Base_DTrack_Nav
                 { }
             } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
         }
-
-      public  static void printData(List<Object> list) {
-            for(int i=0; i < list.Count; i++)
-            {
-                
-                if (list[i].ToString().Contains("GPGGA"))
-                    printGPGGA((ObjectGPGGA)list[i]);
-                else if (list[i].ToString().Contains("GPRMC"))
-                     printGPRMC((ObjectGPRMC)list[i]);
-            }
-
-        }
-
-        public static void printGPGGA(ObjectGPGGA p)
-        {
-            Console.WriteLine(p.type + "  -  " + p.timeUTC + "  -  " + p.latitude + "  -  " + p.longitude + "  -  " + p.gpsQuality + "  -  " + p.nSat + "  -  " +
-               p.dilution + "  -  " + p.altitude + "  -  " + p.altUnit + "  -  " + p.geoidal + "  -  " + p.geoUnit + "  -  " + p.dGPSTime + "  -  " + p.stationRef + "  -  " + p.checksum);
-        }
-
-        public static void printGPRMC(ObjectGPRMC p)
-        {
-            Console.WriteLine(p.type + "  -  " + p.timeUTC + "  -  " + p.status + "  -  " + p.latitude + "  -  " + p.longitude + "  -  " + p.speed + "  -  " + p.cap + "  -  " + p.date + "  -  " +
-             p.magnetic + "  -  " + p.posEorWMagnetic + "  -  " + p.checksum);
-        }
-
+        
         public static ObjectGPRMC objGPRMC { get; set; }
         public static ObjectGPGGA objGPGGA { get; set; }
     }
@@ -151,9 +136,7 @@ namespace Base_DTrack_Nav
 
 
 /*
- * 
  *  System.Threading.Thread.Sleep(100); // used to simulate D-GPS frequency (10 per second)
-
 */
 
 
